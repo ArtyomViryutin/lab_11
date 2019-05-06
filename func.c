@@ -114,7 +114,12 @@ list *delete_elem(list *lst) {
 list *delete_head(list *head) {
 
 	struct list *temp;
-	temp = head->next;
+	temp = head->next;	
+	if (head->next == NULL) {
+		printf("All items of the list were the same and were deleted.\n");
+		system("pause");
+		exit(0);
+	}
 	temp->prev = NULL;
 	free(head);   // освобождение памяти текущего корня
 	return(temp); // новый корень списка
@@ -123,10 +128,12 @@ list *delete_head(list *head) {
 
 list *delete_equal(list *head, char *max) {
 
-	list *p,*new=NULL;
+	list *p, *new = NULL;
 	p = head;
-	int i = 1;
 	do {
+		if (p == NULL)
+			break;
+
 		if (strcmp(max, p->field) == 0) {
 			if (p->prev == NULL) {
 				p = delete_head(p);
@@ -134,12 +141,13 @@ list *delete_equal(list *head, char *max) {
 			}
 			else 
 				p = delete_elem(p);
-
-
+				
 
 		}
 
-		p = p->next; // переход к следующему узлу
+		else 
+			p = p->next; // переход к следующему узлу
+		
 	} while (p != NULL); // условие окончания обхода
 
 
@@ -147,3 +155,17 @@ list *delete_equal(list *head, char *max) {
 }
 
 
+void print_back(list *lst) {
+
+
+	
+		list *p;
+		p = lst;
+		while (p->next != NULL)
+			p = p->next;  // переход к концу списка
+		do {
+			printf("%s\n", p->field); // вывод значения элемента p
+			p = p->prev; // переход к предыдущему узлу
+		} while (p != NULL); // условие окончания обхода
+	
+}
