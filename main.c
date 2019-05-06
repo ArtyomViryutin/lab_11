@@ -10,7 +10,7 @@ int main() {
 
 	char str[A];
 
-	list *head = NULL, *temp,*new;
+	list *head = NULL, *temp, *new;
 
 	char *s;
 
@@ -36,6 +36,9 @@ int main() {
 
 	temp = head;
 
+
+	//temp = head;
+
 	char *max = malloc(sizeof(char)*strlen(head->field));
 
 	strcpy(max, head->field);
@@ -55,40 +58,30 @@ int main() {
 
 	}
 
+	printf("List before modification:\n");
+
 	print_list(head);
 
 	max = search_max(head, max);
 
-	printf("List!! after modification:\n");
+	new = delete_equal(head, max);
 
-	new=delete_equal(head, max);
-
+	
 	if (new != NULL)
 		head = new;
+	
+	printf("List after modification:\n");
+	print_list(head);
+	
+	printf("Print in reverse order:\n");
 
-	if (strcmp(max, head->field) == 0) {
-		printf("All items of the list were the same and were deleted.\n")
-			free(head);
-	}
-
-
-	else 
-		print_list(head);
-
-
-	system("pause");
+	print_back(head);
 
 	free(max);
 
+	system("pause");
+		
 	return 0;
-
-
-
-
-
-
-
-
 
 
 }
